@@ -1,0 +1,11 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+// Replace these with your actual credentials and rename this file to config.h
+// DO NOT commit config.h to version control!
+
+const char* ssid = "your_wifi_ssid";
+const char* password = "your_wifi_password";
+const char* endpointUrl = "http://YOUR_SERVER_IP:8080/";
+
+#endif // CONFIG_H
