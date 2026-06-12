@@ -177,6 +177,11 @@ void handlePurchaseParking() {
   
   HTTPClient http;
   http.begin(endpointUrl);
+  
+  for (int i = 0; i < numHttpHeaders; i++) {
+    http.addHeader(httpHeaders[i].key, httpHeaders[i].value);
+  }
+  
   int httpCode = http.GET();
   
   String payload = "";
