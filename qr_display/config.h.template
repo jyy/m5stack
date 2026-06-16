@@ -6,7 +6,8 @@
 
 const char* ssid = "your_wifi_ssid";
 const char* password = "your_wifi_password";
-const char* endpointUrl = "http://YOUR_SERVER_IP:8080/";
+const char* endpointToday = "https://YOUR_SERVER_IP/?action=buy&when=today";
+const char* endpointTomorrow = "https://YOUR_SERVER_IP/?action=buy&when=tomorrow";
 
 struct HttpHeader {
   const char* key;
