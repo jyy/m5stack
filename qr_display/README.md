@@ -31,17 +31,7 @@ This project allows you to instantly retrieve and display a parking pass QR code
      const char* endpointUrl = "http://YOUR_SERVER_IP:8080/";
      ```
    *(Note: `config.h` is intentionally excluded by `.gitignore` so your credentials stay safe!)*
-3. **Compile and Upload to your CoreInk**:
-   - **Via Arduino IDE**: Click the 'Upload' button in the IDE UI.
-   - **Via CLI (macOS)**: You can use the `arduino-cli` binary bundled inside the Arduino IDE to compile and upload directly from the terminal. 
-     First, find your board's port by running:
-     ```bash
-     "/Applications/Arduino IDE.app/Contents/Resources/app/lib/backend/resources/arduino-cli" board list
-     ```
-     Then, run the following command to compile and upload (replace `/dev/cu.usbserial-5B1F0101911` with your actual port):
-     ```bash
-     "/Applications/Arduino IDE.app/Contents/Resources/app/lib/backend/resources/arduino-cli" compile -b m5stack:esp32:m5stack_coreink -p /dev/cu.usbserial-5B1F0101911 --upload qr_display.ino
-     ```
+3. **Compile and Upload**: Please refer to the [top-level README](../README.md) in the parent `m5stack` directory for detailed instructions on how to compile and upload this project to the CoreInk using either the Arduino IDE or `arduino-cli`.
 
 ## Backend Service Requirement
 
