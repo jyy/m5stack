@@ -29,5 +29,27 @@ This project turns an M5Stack CoreInk (ESP32) into an ultra-low-power, E-ink mul
     * Updates the UI state of any newly found probe and ticks the scanning animation.
 4. Once all probes are found (or a maximum of 45 attempts is reached), the device goes into deep sleep for 86,400 seconds (24 hours).
 
+## Configuration
+Because MAC addresses are private data, they should not be checked into version control. This project is configured to read from a local, untracked `secrets.h` file.
+
+To configure your own plants:
+1. Create a new file named `secrets.h` in the `multi_plant_monitor/` directory.
+2. Define your `SECRET_PROBES` array using your device names and MAC addresses:
+```cpp
+#pragma once
+
+#define SECRET_PROBES { \
+    {"Plant 1", "aa:bb:cc:dd:ee:01"}, \
+    {"Plant 2", "aa:bb:cc:dd:ee:02"}, \
+    {"Plant 3", "aa:bb:cc:dd:ee:03"}, \
+    {"Probe 4", ""}, \
+    {"Probe 5", ""}, \
+    {"Probe 6", ""} \
+}
+```
+3. If you leave a MAC address string entirely empty (e.g., `""`), the auto-scaling UI will completely ignore that row and dynamically enlarge the remaining rows to beautifully fill the screen.
+
+If a `secrets.h` file is not present on the system, the project will safely fall back to generic placeholders and compile successfully.
+
 ## Setup & Flashing
 Please refer to the [top-level README](../README.md) in the parent `m5stack` directory for detailed instructions on how to configure your partition scheme and compile/upload this project to the CoreInk.
