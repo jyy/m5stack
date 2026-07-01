@@ -15,6 +15,12 @@ This project turns an M5Stack CoreInk (ESP32) into an ultra-low-power, E-ink pla
 * **On-Demand Refresh**: Pressing the physical power button on the CoreInk instantly wakes it from deep sleep, performs a real-time scan, updates the screen, and resets the 24-hour timer.
 * **Brownout Prevention**: The ESP32 Bluetooth radio and physical E-ink refresh engine both draw significant current. To prevent the 390mAh battery from browning out, the system uses a sequential blocking scan. The E-ink screen fully settles *before* the BLE radio turns on, preventing power overlap.
 
+## Interactive Setup & Pairing
+The `plant_monitor` does not require you to hardcode any MAC addresses into the source code. Instead, it features an interactive setup mode directly on the device:
+1. **First Boot**: When you turn it on for the first time, it will automatically enter Setup Mode and begin scanning the room for Mi Flora devices.
+2. **Device Selection**: Once the scan finishes, an E-ink menu will appear. Use the **toggle wheel** (Up/Down) to select your plant's MAC address, and push the wheel **inward** to save. The MAC address is securely saved to the ESP32's non-volatile memory (NVRAM).
+3. **Re-pairing / Resetting**: To connect to a different plant, simply **press and hold the toggle wheel inward** while turning on the device. This will wipe the saved MAC address and drop you back into the interactive Setup Mode menu.
+
 ## How it Works
 1. The CoreInk wakes up from the RTC timer (or manual button press).
 2. It draws the initial layout (battery icon, Grimace placeholder, `SCANNING (1)`, and `Moisture: -%`) and waits for the screen to settle.

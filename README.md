@@ -37,7 +37,10 @@ arduino-cli upload -p <YOUR_SERIAL_PORT> --fqbn m5stack:esp32:m5stack_coreink .
 
 *(Note: If you have installed `arduino-cli` internally via the Arduino IDE on macOS, the binary may be located at `/Applications/Arduino IDE.app/Contents/Resources/app/lib/backend/resources/arduino-cli`)*
 
-## Troubleshooting
+## Troubleshooting & Gotchas
 
 *   **Fails to flash:** Ensure the device is turned on and not in deep sleep while attempting to flash. You can manually reset it by pressing the reset button on the side/back while the USB is plugged in.
-*   **Brownouts:** The ESP32 Bluetooth radio and physical E-ink refresh engine both draw significant current. Projects using both BLE and E-ink should ensure sequential operation (using `M5.Display.waitDisplay()`) to prevent the 390mAh battery from browning out.
+*   **Brownouts:** The ESP32 Bluetooth radio and physical E-ink refresh engine both draw significant current. Projects using both BLE and E-ink should ensure sequential operation (using `M5.Display.waitDisplay()` and `delay(3000)`) to prevent the 390mAh battery from browning out. Do not run them concurrently.
+*   **BLEScan Memory Leaks:** If your project continuously stops and restarts BLE scans in a loop, you **must** instruct the Arduino BLE library not to store duplicate devices. Pass `true` as the second argument: `pBLEScan->setAdvertisedDeviceCallbacks(..., true);`. Otherwise, its internal `std::map` will quickly fragment the heap and crash the device.
+*   **M5GFX Text Clipping:** Adafruit GFX fonts (like `FreeSansBold`) have invisible bounding boxes that extend far below the visible text. If this bounding box clips the physical edge of the CoreInk's 200x200 screen, `M5GFX` will entirely discard the drawing command and the text will be mysteriously missing. Make sure to leave ample padding at the bottom of the screen.
+*   **M5GFX Text Datum Pollution:** The `setTextDatum()` state is persistent in the canvas object. If a helper function (like drawing a centered UI element) modifies it to `middle_center`, you must manually reset it to `middle_left` (or whatever your default is) before drawing the next element. Otherwise, subsequent coordinates will be misaligned, often drawing text partially off the edge of the screen.

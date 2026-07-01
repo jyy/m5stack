@@ -159,7 +159,7 @@ void runSetupMode() {
 
         BLEDevice::init("");
         BLEScan* pBLEScan = BLEDevice::getScan();
-        pBLEScan->setAdvertisedDeviceCallbacks(new SetupScanCallbacks());
+        pBLEScan->setAdvertisedDeviceCallbacks(new SetupScanCallbacks(), true);
         pBLEScan->setActiveScan(true);
         pBLEScan->setInterval(100);
         pBLEScan->setWindow(99);
@@ -292,7 +292,7 @@ void setup() {
     
     BLEDevice::init("");
     BLEScan* pBLEScan = BLEDevice::getScan();
-    pBLEScan->setAdvertisedDeviceCallbacks(new MonitorScanCallbacks());
+    pBLEScan->setAdvertisedDeviceCallbacks(new MonitorScanCallbacks(), true);
     pBLEScan->setActiveScan(true); // Active scan required to get scan response payload
     pBLEScan->setInterval(100);
     pBLEScan->setWindow(99);
@@ -322,10 +322,10 @@ void setup() {
         
         canvas.pushSprite(0, 0);
         M5.Display.waitDisplay(); // Crucial: wait for E-ink to completely finish before turning on BLE
+        delay(3000); // 3-second battery recovery period to prevent brownout
 
         Serial.printf("Starting blocking BLE scan %d...\n", attempt);
         pBLEScan->start(2, false); // Block and scan for 2s
-        pBLEScan->clearResults();
         attempt++;
     }
     canvas.clear(TFT_WHITE);
