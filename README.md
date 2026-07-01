@@ -5,6 +5,7 @@ This repository contains custom firmware and projects built for M5Stack devices.
 ## Projects
 
 *   **[`plant_monitor`](./plant_monitor/)**: An ultra-low-power Bluetooth LE soil moisture monitor for the M5Stack CoreInk that reads data from a Xiaomi Mi Flora sensor and displays it on the E-ink screen.
+*   **[`multi_plant_monitor`](./multi_plant_monitor/)**: A scalable version of the plant monitor that automatically polls up to 6 Mi Flora sensors sequentially and dynamically resizes the E-ink UI rows based on how many plants are configured.
 *   **[`qr_display`](./qr_display/)**: (e.g. Parking Purchase display) A project designed to display QR codes or parking information.
 
 ## Compiling & Uploading
